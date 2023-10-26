@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Новости и Статьи
+{% endblock title %}
+
+{% block content %}
+   <h1>Новости и Статьи</h1>
+   <h3>Всего {{ headings|length}} статьи/новости</h3>
+   <h3>{{ time_now|date:'d M Y' }}</h3>
+
+   <hr>
+   {% if headings %}
+       <table>
+           <tr>
+               <td>Зоголовок статьи</td>
+               <td>Дата публикации</td>
+               <td>Превью</td>
+
+           </tr>
+
+           {% for head in headings %}
+           <tr>
+               <td>{{ head.heading|censor }}</td>
+               <td>{{ head.time_creates|date:'d M Y' }}</td>
+               <td>{{ head.article_text|censor|truncatechars:15 }}</td>
+
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей и Статей нет!</h2>
+   {% endif %}
+{% endblock content %}
